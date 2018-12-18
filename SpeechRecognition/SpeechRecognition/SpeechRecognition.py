@@ -158,7 +158,7 @@ class Speech_AI:
 
     def openurl(self, url, ans):
         webbrowser.open(url)
-        self.say(str(ans))
+        #self.say(str(ans))
         while pygame.mixer.music.get_busy():
             time.sleep(0.1)
 
