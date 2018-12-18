@@ -41,6 +41,14 @@ class Speech_AI:
                     statement = self._recognizer.recognize_google(audio, language="ru_RU")
                     statement=statement.lower()
 
+                    # Команды для маленького разговора
+
+                    if((statement.find("привет")!=-1) or (statement.find("здравствуй")!=-1) or (statement.find("приветствую")!=-1) or (statement.find("здорово")!=-1)):
+                        self.say('Привет!')
+
+                    if((statement.find("как дела")!=-1) or (statement.find("как твои дела")!=-1) or (statement.find("как поживаешь")!=-1) or (statement.find("как идут дела")!=-1)):
+                        self.say('Я всего лишь программа которая выполняет приказы на которые я способна, так что перестань спрашивать меня как идут у меня дела')
+
                     # Команды для открытия различных внешних приложений
 
                     if((statement.find("калькулятор")!=-1) or (statement.find("calculator")!=-1)):
@@ -135,7 +143,7 @@ class Speech_AI:
 
                     # Поддержание диалога
                     
-                    if((statement.find("до свидания")!=-1) or (statement.find("досвидания")!=-1)):
+                    if((statement.find("до свидания")!=-1) or (statement.find("досвидания")!=-1) or (statement.find("пока")!=-1) or (statement.find("увидимся")!=-1) or (statement.find("прощай")!=-1)):
                         answer = "Пока!"
                         self.say(str(answer))
                         while pygame.mixer.music.get_busy():
@@ -148,6 +156,8 @@ class Speech_AI:
                     print("Упс! Кажется, я тебя не поняла, повтори еще раз")
                 except sr.RequestError as e:
                     print("Не могу получить данные от сервиса Google Speech Recognition; {0}".format(e))
+                except TimeoutError:
+                    print("Не могу получить данные от сервиса Google Speech Recognition")
         except KeyboardInterrupt:
             self._clean_up()
             print("Пока!")
