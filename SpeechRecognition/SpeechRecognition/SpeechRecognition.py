@@ -5,7 +5,10 @@ from gtts import gTTS
 # Воспроизведение речи
 import pygame
 from pygame import mixer
-mixer.init()
+try:
+    mixer.init()
+except pygame.error:
+    print("Аудио девайс не опознан");
 
 import os
 import sys
@@ -19,12 +22,35 @@ class Speech_AI:
 
     def __init__(self):
         self._recognizer = sr.Recognizer()
-        self._microphone = sr.Microphone()
-
+        try:
+            self._microphone = sr.Microphone()
+        except OSError:
+            print("Микрофон не опознан");
         
         now_time = datetime.datetime.now()
         self._mp3_name = now_time.strftime("%d%m%Y%I%M%S")+".mp3"
         self._mp3_nameold='111'
+
+        #не рабочая часть-------------------------------------------------------------------------
+    def start(self):
+        try:
+            with self._microphone as source:
+                self._recognizer.adjust_for_ambient_noise(source)
+            while True:
+                with self._microphone as source:
+                            audio = self._recognizer.listen(source)
+                statement = self._recognizer.recognize_google(audio, language="ru_RU")
+                statement=statement.lower()
+                print("Скажите старт")
+                if(statement.find("старт")!=-1):
+                    return True;
+        except sr.UnknownValueError:
+            print("Упс! Кажется, я тебя не поняла, повтори еще раз")
+        except sr.RequestError as e:
+            print("Не могу получить данные от сервиса Google Speech Recognition; {0}".format(e))
+        except TimeoutError:
+            print("Не могу получить данные от сервиса Google Speech Recognition")
+            #не рабочая часть-------------------------------------------------------------------------
 
     def work(self):
         print("Минутку тишины, пожалуйста...")
@@ -32,6 +58,7 @@ class Speech_AI:
             self._recognizer.adjust_for_ambient_noise(source)
 
         try:
+            print("Доброе день Мистер старк")
             while True:
                 print("Скажи что - нибудь!")
                 with self._microphone as source:
@@ -40,14 +67,6 @@ class Speech_AI:
                 try:
                     statement = self._recognizer.recognize_google(audio, language="ru_RU")
                     statement=statement.lower()
-
-                    # Команды для маленького разговора
-
-                    if((statement.find("привет")!=-1) or (statement.find("здравствуй")!=-1) or (statement.find("приветствую")!=-1) or (statement.find("здорово")!=-1)):
-                        self.say('Привет!')
-
-                    if((statement.find("как дела")!=-1) or (statement.find("как твои дела")!=-1) or (statement.find("как поживаешь")!=-1) or (statement.find("как идут дела")!=-1)):
-                        self.say('Я всего лишь программа которая выполняет приказы на которые я способна, так что перестань спрашивать меня как идут у меня дела')
 
                     # Команды для открытия различных внешних приложений
 
@@ -149,6 +168,12 @@ class Speech_AI:
                         while pygame.mixer.music.get_busy():
                             time.sleep(0.1)
                         sys.exit()
+                    
+                    if((statement.find("привет")!=-1) or (statement.find("здравствуй")!=-1) or (statement.find("приветствую")!=-1) or (statement.find("здорово")!=-1)):
+                        self.say('Привет!')
+
+                    if((statement.find("как дела")!=-1) or (statement.find("как твои дела")!=-1) or (statement.find("как поживаешь")!=-1) or (statement.find("как идут дела")!=-1)):
+                        self.say('Я всего лишь программа которая выполняет приказы на которые я способна, так что перестань спрашивать меня как идут у меня дела')
                     
                     print("Вы сказали: {}".format(statement))
                     
