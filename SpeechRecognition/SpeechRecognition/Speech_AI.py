@@ -1,4 +1,5 @@
 import speech_recognition as sr
+import Functions
 from gtts import gTTS
 
 # Воспроизведение речи
@@ -16,6 +17,7 @@ import datetime
 import logging
 import webbrowser
 import subprocess
+import sqlite3
 class Speech_AI:
 
     def __init__(self):
@@ -159,7 +161,25 @@ class Speech_AI:
                         self.openurl('https://vk.com/audios356018751?q=' + statement, "Нажмите плэй")
 
 
-                    # Поддержание диалога
+                        # бд
+                    if(statement.find("запомни") != -1 or statement.find("запиши") != 1):
+                        conn = sqlite3.connect("Data.db")
+                        c = conn.cursor()
+                        if(statment.find("адрес") != 1):
+                           Functions.InsertAdres()
+                            
+                        if(statment.find("событи") != 1 or statment.find("день рождени") != 1 or statment.find("мероприяти") != 1):
+                            Functions.InsertEvent()
+
+
+                            # файловая система
+
+                            
+                    if(statement.find("пиши") != -1 and statement.find("блокнот")):
+                        Functions.WriteFile()
+                            
+                            
+                            # Поддержание диалога
                     
                     if((statement.find("до свидания")!=-1) or (statement.find("досвидания")!=-1) or (statement.find("пока")!=-1) or (statement.find("увидимся")!=-1) or (statement.find("прощай")!=-1)):
                         answer = "Пока!"
