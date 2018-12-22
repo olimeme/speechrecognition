@@ -58,7 +58,7 @@ class Speech_AI:
             self._recognizer.adjust_for_ambient_noise(source)
 
         try:
-            print("Доброе день Мистер старк")
+            print("Добрый день Мистер старк")
             while True:
                 print("Скажи что - нибудь!")
                 with self._microphone as source:
@@ -111,7 +111,7 @@ class Speech_AI:
                     if((statement.find("покажи депрессию")!=-1)):
                         self.openurl('https://pp.userapi.com/c847122/v847122517/123819/g5XMTUf5lU8.jpg', 'Показывают бога')
 
-                    if((statement.find("случайное аниме")!=-1) or (statement.find("рандом аниме")!=-1) or (statement.find("рандом")!=-1)):
+                    if((statement.find("случайное аниме")!=-1) or (statement.find("рандом аниме")!=-1)):
                         self.openurl('https://yummyanime.com/random', 'Вот случайное аниме')
 
                     # Команды для поиска в сети интернет
