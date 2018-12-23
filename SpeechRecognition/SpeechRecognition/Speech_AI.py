@@ -202,8 +202,22 @@ class Speech_AI:
                         while pygame.mixer.music.get_busy():
                             time.sleep(0.1)
                         sys.exit()
+                    
                     if((statement.find("время")!=-1) or (statement.find("который час")!=-1) or (statement.find("сколько время")!=-1) or (statement.find("сколько щас")!=-1) or (statement.find("сколько сейчас")!=-1)):   
-                        print(time.localtime())
+                        time_list = time.localtime()
+                        hour = str(time_list[3]);
+                        minute = str(time_list[4]);
+                        print("Сейчас " + hour + ":" + minute);
+                        self.say("Сейчас " + hour + ":" + minute);
+
+                    if((statement.find("дата")!=-1) or (statement.find("какое сегодня число")!=-1) or (statement.find("сегоднящнее число")!=-1) or (statement.find("сегоднящняя дата")!=-1)):   
+                        time_list = time.localtime()
+                        year = str(time_list[0]);
+                        month = str(time_list[1]);
+                        day = str(time_list[2]);
+                        print("Сейчас " + year + " год, " + month + " месяц и "+ day + " день");
+                        self.say("Сейчас " + year + " год, " + month + " месяц и "+ day + " день");
+                
                     if((statement.find("привет")!=-1) or (statement.find("здравствуй")!=-1) or (statement.find("приветствую")!=-1) or (statement.find("здорово")!=-1)):
                         time_list = time.localtime()
                         hours = time_list[3]
@@ -215,6 +229,7 @@ class Speech_AI:
                             self.say("Добрый вечер!")
                         else:
                             self.say("Доброй ночи")
+                    
                     if((statement.find("как дела")!=-1) or (statement.find("как твои дела")!=-1) or (statement.find("как поживаешь")!=-1) or (statement.find("как идут дела")!=-1)):
                         randAnswer = random.randint(0,2)
                         if(randAnswer==0):
