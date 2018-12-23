@@ -85,6 +85,15 @@ class Speech_AI:
                     if((statement.find("paint")!=-1) or (statement.find("паинт")!=-1)):
                         self.osrun('mspaint')
 
+                    if((statement.find("диспетчер задач")!=-1)):
+                        self.osrun('taskmgr')
+                        
+                    if((statement.find("командная строка")!=-1)):
+                        self.osrun('start cmd')
+                    
+                    if((statement.find("проигрыватель виндоус")!=-1) or (statement.find("проигрыватель windows")!=-1)):
+                        self.osrun('start wmplayer')
+
                     if((statement.find("browser")!=-1) or (statement.find("браузер")!=-1)):
                         self.openurl('http://google.ru', 'Открываю браузер')
  
@@ -114,11 +123,11 @@ class Speech_AI:
                     if((statement.find("покажи бога")!=-1)):
                         self.openurl('https://pbs.twimg.com/profile_images/679621054361239552/X8Xu2CHm_400x400.jpg', 'Показывают бога')
 
-                    if((statement.find("покажи депрессию")!=-1)):
-                        self.openurl('https://pp.userapi.com/c847122/v847122517/123819/g5XMTUf5lU8.jpg', 'Показывают бога')
-
                     if((statement.find("случайное аниме")!=-1) or (statement.find("рандом аниме")!=-1)):
                         self.openurl('https://yummyanime.com/random', 'Вот случайное аниме')
+
+                    if((statement.find("включи музыку")!=-1) or (statement.find("включи музыки")!=-1)):
+                        self.openurl('https://www.youtube.com/watch?v=hHW1oY26kxQ', 'Тихий хип-хоп')
 
                     # Команды для поиска в сети интернет
                   
@@ -154,16 +163,16 @@ class Speech_AI:
                         self.openurl('http://www.youtube.com/results?search_query=' + statement, 'Ищу в ютуб')
 
 
-                    if((statement.find("слушать")!=-1) and (statement.find("песни")!=-1)):
-                        statement=statement.replace('песню', '')
-                        statement=statement.replace('песни', '')
-                        statement=statement.replace('песня', '')
-                        statement=statement.replace('песней', '')
-                        statement=statement.replace('послушать', '')
-                        statement=statement.replace('слушать', '')
-                        statement=statement.replace('хочу', '')
-                        statement=statement.strip()
-                        self.openurl('https://vk.com/audios356018751?q=' + statement, "Нажмите плэй")
+                    #if((statement.find("слушать")!=-1) and (statement.find("песни")!=-1)):
+                    #    statement=statement.replace('песню', '')
+                    #    statement=statement.replace('песни', '')
+                    #    statement=statement.replace('песня', '')
+                    #    statement=statement.replace('песней', '')
+                    #    statement=statement.replace('послушать', '')
+                    #    statement=statement.replace('слушать', '')
+                    #    statement=statement.replace('хочу', '')
+                    #    statement=statement.strip()
+                    #    self.openurl('https://vk.com/audios356018751?q=' + statement, "Нажмите плэй")
 
 
                     #    # бд
