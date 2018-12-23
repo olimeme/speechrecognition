@@ -1,7 +1,8 @@
 import speech_recognition as sr
 import Functions
 from gtts import gTTS
-
+import random
+import time
 # Воспроизведение речи
 import pygame
 from pygame import mixer
@@ -201,13 +202,51 @@ class Speech_AI:
                         while pygame.mixer.music.get_busy():
                             time.sleep(0.1)
                         sys.exit()
-                    
+                    if((statement.find("время")!=-1) or (statement.find("который час")!=-1) or (statement.find("сколько время")!=-1) or (statement.find("сколько щас")!=-1) or (statement.find("сколько сейчас")!=-1)):   
+                        print(time.localtime())
                     if((statement.find("привет")!=-1) or (statement.find("здравствуй")!=-1) or (statement.find("приветствую")!=-1) or (statement.find("здорово")!=-1)):
-                        self.say('Привет!')
-
+                        time_list = time.localtime()
+                        hours = time_list[3]
+                        if(6 <= int(hours) <= 12):
+                            self.say("Доброго утра!")
+                        elif(13 <= int(hours) <= 18):
+                            self.say("Добрый день!")
+                        elif(19 <= int(hours) <= 23):
+                            self.say("Добрый вечер!")
+                        else:
+                            self.say("Доброй ночи")
                     if((statement.find("как дела")!=-1) or (statement.find("как твои дела")!=-1) or (statement.find("как поживаешь")!=-1) or (statement.find("как идут дела")!=-1)):
-                        self.say('Я всего лишь программа которая выполняет приказы на которые я способна, так что перестань спрашивать меня как идут у меня дела')
-                    
+                        randAnswer = random.randint(0,2)
+                        if(randAnswer==0):
+                            self.say('Я всего лишь программа которая выполняет приказы на которые я способна, так что перестань спрашивать меня как идут у меня дела')
+                        elif(randAnswer==1):
+                            self.say("Хорошо, у вас как?")
+                        elif(randAnswer==2):
+                            self.say("Наилучшим образом.")
+                    else:
+                        randAnswer = random.randint(0,10)
+                        if(randAnswer==0):
+                            self.say("Отлично")
+                        if(randAnswer==1):
+                            self.say("Я рада")
+                        if(randAnswer==2):
+                            self.say("Хорошо")
+                        if(randAnswer==3):
+                            self.say("А вы знали, что пэйпал это плохая вещь?")
+                        if(randAnswer==4):
+                            self.say("Я не знаю")
+                        if(randAnswer==5):
+                            self.say("Как же так вышло?")
+                        if(randAnswer==6):
+                            self.say("Ага")
+                        if(randAnswer==7):
+                            self.say("Возможно")
+                        if(randAnswer==8):
+                            self.say("Я не могу понять вас, я всего лишь робот")
+                        if(randAnswer==9):
+                            self.say("Гло́кая ку́здра ште́ко будлану́ла бо́кра и курдя́чит бокрёнка")
+                        if(randAnswer==10):
+                            self.say("А?")
                     print("Вы сказали: {}".format(statement))
                     
                 except sr.UnknownValueError:
