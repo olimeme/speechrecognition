@@ -21,7 +21,7 @@ import subprocess
 import sqlite3
 
 class Functions():
-    def InsertAdres():
+    def InsertAdress():
         print("Скаижите адрес ( пример : 'Сатпаева 25 это дом' )")
         with self._microphone as source:
             audio = self._recognizer.listen(source)

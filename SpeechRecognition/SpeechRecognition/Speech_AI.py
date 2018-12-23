@@ -37,21 +37,26 @@ class Speech_AI:
             with self._microphone as source:
                 self._recognizer.adjust_for_ambient_noise(source)
             while True:
-                print("Скажите старт")
-                with self._microphone as source:
-                            audio = self._recognizer.listen(source)
-                statement = self._recognizer.recognize_google(audio, language="ru_RU")
-                statement=statement.lower()
-                print("Загрузка....")
-                if(statement.find("старт")!=-1):
-                    return True;
-        except sr.UnknownValueError:
-            print("Упс! Кажется, я тебя не поняла, повтори еще раз")
-        except sr.RequestError as e:
-            print("Не могу получить данные от сервиса Google Speech Recognition; {0}".format(e))
-        except TimeoutError:
-            print("Время ожидания ответа из сервера истекло")
-            return 0;
+                try:
+                  print("Скажите старт")
+                  with self._microphone as source:
+                      audio = self._recognizer.listen(source)
+                  statement = self._recognizer.recognize_google(audio, language="ru_RU")
+                  statement=statement.lower()
+                  print("Загрузка....")
+                  if((statement.find("старт")!=-1) or (statement.find("star")!=-1)):
+                      return True;
+                  print("Вы сказали: {}".format(statement))
+                except sr.UnknownValueError:
+                   print("Упс! Кажется, я тебя не поняла, повтори еще раз")
+                except sr.RequestError as e:
+                  print("Не могу получить данные от сервиса Google Speech Recognition; {0}".format(e))
+                except TimeoutError:
+                  print("Время ожидания ответа из сервера истекло")
+                  return 0;
+        except KeyboardInterrupt:
+            self._clean_up()
+            print("Пока!")
 
     def work(self):
         print("Минутку тишины, пожалуйста...")
@@ -59,7 +64,7 @@ class Speech_AI:
             self._recognizer.adjust_for_ambient_noise(source)
 
         try:
-            print("Добрый день Мистер старк")
+            print("Добрый день Мистер Cтарк")
             while True:
                 print("Скажи что - нибудь!")
                 with self._microphone as source:
@@ -161,22 +166,22 @@ class Speech_AI:
                         self.openurl('https://vk.com/audios356018751?q=' + statement, "Нажмите плэй")
 
 
-                        # бд
-                    if(statement.find("запомни") != -1 or statement.find("запиши") != 1):
-                        conn = sqlite3.connect("Data.db")
-                        c = conn.cursor()
-                        if(statment.find("адрес") != 1):
-                           Functions.InsertAdres()
+                    #    # бд
+                    #if((statement.find("запомни")) != -1 or (statement.find("запиши") != 1)):
+                    #    conn = sqlite3.connect("Data.db")
+                    #    c = conn.cursor()
+                    #    if(statement.find("адрес") != 1):
+                    #       Functions.InsertAdress()
                             
-                        if(statment.find("событи") != 1 or statment.find("день рождени") != 1 or statment.find("мероприяти") != 1):
-                            Functions.InsertEvent()
+                    #    if((statement.find("событи") != 1) or (statment.find("день рождени") != 1) or (statment.find("мероприяти") != 1)):
+                    #        Functions.InsertEvent()
 
 
-                            # файловая система
+                    #    # файловая система
 
                             
-                    if(statement.find("пиши") != -1 and statement.find("блокнот")):
-                        Functions.WriteFile()
+                    #if((statement.find("пиши") != -1) and (statement.find("блокнот")!=-1)):
+                    #    Functions.WriteFile()
                             
                             
                             # Поддержание диалога
