@@ -1,6 +1,7 @@
-import speech_recognition as sr
+import speech_recognition as sr 
 import random
 import time
+
 # Воспроизведение речи
 import pygame
 from pygame import mixer
@@ -18,6 +19,7 @@ import webbrowser
 import subprocess
 import sqlite3
 cls = lambda: os.system('cls')
+
 class Speech_AI:
 
     def __init__(self):
@@ -109,7 +111,7 @@ class Speech_AI:
  
                     if(((statement.find("новости")!=-1) or (statement.find("новость")!=-1) or (statement.find("на усть")!=-1))):
                         cls()
-                        self.openurl('https://www.nur.kz', 'Открываю новости')
+                        self.openurl('https://tengrinews.kz/', 'Открываю новости')
                          
                     if((statement.find("mail")!=-1) or (statement.find("майл")!=-1)):
                         cls()
@@ -130,6 +132,10 @@ class Speech_AI:
                     if((statement.find("включи музыку")!=-1) or (statement.find("включи музыки")!=-1)):
                         cls()
                         self.openurl('https://www.youtube.com/watch?v=5qap5aO4i9A&ab_channel=ChilledCow', 'Тихий хип-хоп')
+
+                    if(statement.find("погода")!=-1):
+                        cls()
+                        self.openurl('https://www.gismeteo.kz/weather-nur-sultan-5164/10-days/', 'Открываю погоду')
 
                     # Команды для поиска в сети интернет
                   
@@ -191,42 +197,30 @@ class Speech_AI:
                         time_list = time.localtime()
                         hours = time_list[3]
                         if(6 <= int(hours) <= 12):
+                            cls()
                             print("Доброго утра!")
                         elif(13 <= int(hours) <= 18):
+                            cls()
                             print("Добрый день!")
                         elif(19 <= int(hours) <= 23):
+                            cls()
                             print("Добрый вечер!")
                         else:
+                            cls()
                             print("Доброй ночи")
                     
                     if((statement.find("как дела")!=-1) or (statement.find("как твои дела")!=-1) or (statement.find("как поживаешь")!=-1) or (statement.find("как идут дела")!=-1)):
                         randAnswer = random.randint(0,2)
                         if(randAnswer==0):
+                            cls()
                             print('Я всего лишь программа которая выполняет приказы на которые я способна, так что перестань спрашивать меня как идут у меня дела')
                         elif(randAnswer==1):
+                            cls()
                             print("Хорошо, у вас как?")
                         elif(randAnswer==2):
+                            cls()
                             print("Наилучшим образом.")
-                    else:
-                        randAnswer = random.randint(0,10)
-                        if(randAnswer==0):
-                            print("Отлично")
-                        if(randAnswer==1):
-                            print("Я рада")
-                        if(randAnswer==2):
-                            print("Хорошо")
-                        if(randAnswer==3):
-                            print("Я не знаю")
-                        if(randAnswer==4):
-                            print("Как же так вышло?")
-                        if(randAnswer==5):
-                            print("Ага")
-                        if(randAnswer==6):
-                            print("Возможно")
-                        if(randAnswer==7):
-                            print("Я не могу понять вас, я всего лишь робот")
-                        if(randAnswer==8):
-                            print("А?")
+
                     print("Вы сказали: {}".format(statement))
                     
                 except sr.UnknownValueError:
